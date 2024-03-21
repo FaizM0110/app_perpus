@@ -9,47 +9,44 @@
 -->
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
-    <!-- CSS files -->
-    <link href="./dist/css/tabler.min.css?1684106062" rel="stylesheet"/>
-    <link href="./dist/css/tabler-flags.min.css?1684106062" rel="stylesheet"/>
-    <link href="./dist/css/tabler-payments.min.css?1684106062" rel="stylesheet"/>
-    <link href="./dist/css/tabler-vendors.min.css?1684106062" rel="stylesheet"/>
-    <link href="./dist/css/demo.min.css?1684106062" rel="stylesheet"/>
-    <style>
-      @import url('https://rsms.me/inter/inter.css');
-      :root {
-      	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-      }
-      body {
-      	font-feature-settings: "cv03", "cv04", "cv11";
-      }
-    </style>
+  @include('templates.partials.head')
   </head>
   <body >
     <script src="./dist/js/demo-theme.min.js?1684106062"></script>
     <div class="page">
       <!-- Sidebar -->
-        @include('templates.partials.sidebar')
+      @include('templates.partials.sidebar')
       <div class="page-wrapper">
         <!-- Page header -->
         <div class="page-header d-print-none">
           <div class="container-xl">
-            @include('templates.partials.head')
+            <div class="row g-2 align-items-center">
+              <div class="col">
+                <!-- Page pre-title -->
+                <div class="page-pretitle">
+                  {{ $pretitle ?? 'Data'}}
+                </div>
+                <h2 class="page-title">
+                  {{ $title ?? 'Publisher'}}
+                </h2>
+              </div>
+              <!-- Page title actions -->
+              @stack('page-action')
+            </div>
           </div>
         </div>
         <!-- Page body -->
         <div class="page-body">
           <div class="container-xl">
+            @if(session('success'))
+              <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
             @yield('content')
           </div>
         </div>
         <footer class="footer footer-transparent d-print-none">
           <div class="container-xl">
-           @include('templates.partials.footer')
+            @include('templates.partials.footer')
           </div>
         </footer>
       </div>
